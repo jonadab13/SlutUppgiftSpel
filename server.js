@@ -15,6 +15,21 @@ db.run(`
   )
 `);
 
+app.get("/", (req, res) => {
+  res.send("Game Score Tracker API is active");
+});
+
+// GET all scores
+app.get("/scores", (req, res) => {
+  db.all("SELECT * FROM scores", (error, rows) => {
+    if (error) {
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    res.status(200).json(rows);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
