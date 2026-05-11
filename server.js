@@ -30,6 +30,25 @@ app.get("/scores", (req, res) => {
   });
 });
 
+// gets a score by id
+app.get("/scores/:id", (req, res) => {
+  const id = req.params.id;
+
+  const sql = "SELECT * FROM scores WHERE id = ?";
+
+  db.get(sql, [id], (error, row) => {
+    if (error) {
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    if (!row) {
+      return res.status(404).json({ error: "Score not found" });
+    }
+
+    res.status(200).json(row);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
