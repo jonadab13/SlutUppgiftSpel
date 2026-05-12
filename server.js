@@ -49,6 +49,25 @@ app.get("/scores/:id", (req, res) => {
   });
 });
 
+// GET scores using query parameter
+app.get("/scores/search", (req, res) => {
+  const minScore = req.query.minScore;
+
+  if (!minScore) {
+    return res.status(400).json({ error: "minScore query is required" });
+  }
+
+  const sql = "SELECT * FROM scores WHERE score >= ?";
+
+  db.all(sql, [minScore], (error, rows) => {
+    if (error) {
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    res.status(200).json(rows);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
