@@ -68,6 +68,38 @@ app.get("/scores/search", (req, res) => {
   });
 });
 
+// POST create new score
+app.post("/scores", (req, res) => {
+  const playerName = req.body.playerName;
+  const score = req.body.score;
+
+  // Validation
+  if (!playerName) {
+    return res.status(400).json({ error: "Player name is required" });
+  }
+
+  if (score === undefined) {
+    return res.status(400).json({ error: "Score is required" });
+  }
+
+  if (typeof score !== "number") {
+    return res.status(400).json({ error: "Score must be a number" });
+  }
+
+  const sql = "INSERT INTO scores (playerName, score) VALUES (?, ?)";
+
+  db.run(sql, [playerName, score], function (error) {
+    if (error) {
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    res.status(201).json({
+      message: "Score created successfully",
+      id: this.lastID,
+    });
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
