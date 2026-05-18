@@ -100,6 +100,41 @@ app.post("/scores", (req, res) => {
   });
 });
 
+// PUT update score
+app.put("/scores/:id", (req, res) => {
+  const id = req.params.id;
+
+  const playerName = req.body.playerName;
+  const score = req.body.score;
+
+  // Validation
+  if (!playerName) {
+    return res.status(400).json({ error: "Player name is required" });
+  }
+
+  if (score === undefined) {
+    return res.status(400).json({ error: "Score is required" });
+  }
+
+  if (typeof score !== "number") {
+    return res.status(400).json({ error: "Score must be a number" });
+  }
+
+  const sql = "UPDATE scores SET playerName = ?, score = ? WHERE id = ?";
+
+  db.run(sql, [playerName, score, id], function (error) {
+    if (error) {
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    if (this.changes === 0) {
+      return res.status(404).json({ error: "Score not found" });
+    }
+
+    res.status(200).json({ message: "Score updated successfully" });
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
