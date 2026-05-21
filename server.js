@@ -30,25 +30,6 @@ app.get("/scores", (req, res) => {
   });
 });
 
-// gets a score by id
-app.get("/scores/:id", (req, res) => {
-  const id = req.params.id;
-
-  const sql = "SELECT * FROM scores WHERE id = ?";
-
-  db.get(sql, [id], (error, row) => {
-    if (error) {
-      return res.status(500).json({ error: "Database error" });
-    }
-
-    if (!row) {
-      return res.status(404).json({ error: "Score not found" });
-    }
-
-    res.status(200).json(row);
-  });
-});
-
 // GET scores using query parameter
 app.get("/scores/search", (req, res) => {
   const minScore = req.query.minScore;
@@ -65,6 +46,25 @@ app.get("/scores/search", (req, res) => {
     }
 
     res.status(200).json(rows);
+  });
+});
+
+// gets a score by id
+app.get("/scores/:id", (req, res) => {
+  const id = req.params.id;
+
+  const sql = "SELECT * FROM scores WHERE id = ?";
+
+  db.get(sql, [id], (error, row) => {
+    if (error) {
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    if (!row) {
+      return res.status(404).json({ error: "Score not found" });
+    }
+
+    res.status(200).json(row);
   });
 });
 
@@ -132,6 +132,25 @@ app.put("/scores/:id", (req, res) => {
     }
 
     res.status(200).json({ message: "Score updated successfully" });
+  });
+});
+
+// DELETE score
+app.delete("/scores/:id", (req, res) => {
+  const id = req.params.id;
+
+  const sql = "DELETE FROM scores WHERE id = ?";
+
+  db.run(sql, [id], function (error) {
+    if (error) {
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    if (this.changes === 0) {
+      return res.status(404).json({ error: "Score not found" });
+    }
+
+    res.status(200).json({ message: "Score deleted successfully" });
   });
 });
 
