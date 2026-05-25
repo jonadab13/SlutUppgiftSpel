@@ -1,0 +1,162 @@
+{
+  "info": {
+    "_postman_id": "46131c01-963c-4d7f-a858-cd867f0c7e12",
+    "name": "SlutUppgiftSpel",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53607173",
+    "_collection_link": "https://go.postman.co/collection/53607173-46131c01-963c-4d7f-a858-cd867f0c7e12?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get All Scores",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/scores",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "scores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Score",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"playerName\": \"Teodor\",\r\n  \"score\": 1000\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/scores",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "scores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/scores/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "scores",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Score",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"playerName\": \"Jonadab\",\r\n  \"score\": 900\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/scores/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "scores",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Score",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/scores/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "scores",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Query Params",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/scores/search?minScore=903",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "scores",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "minScore",
+              "value": "903"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
